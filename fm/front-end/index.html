@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Data Visualization</title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        main { padding: 20px; }
+        .form-element-container { margin: 10px 0; }
+        #container { margin-top: 20px; }
+        .radio-label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .radio-label input[type="radio"] {
+            display: none;
+        }
+        .radio-label .radio-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        .radio-label input[type="radio"]:checked + .radio-icon {
+            color: #3273dc;
+        }
+    </style>
+</head>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="help.html">Help</a>
+    <a href="feedback.html">feedback</a>
+    <!-- Add more navigation links as needed -->
+</nav>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Weather Data Visualization</h1>
+            <form id="plot-selection-form">
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="M01WINDSPEED" value="M01WINDSPEED" checked>
+                            <span class="radio-icon"><i class="fas fa-wind"></i></span> Wind Speed
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="Pyranometer" value="Pyranometer">
+                            <span class="radio-icon"><i class="fas fa-sun"></i></span> Pyranometer
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="Precipitation" value="Precipitation">
+                            <span class="radio-icon"><i class="fas fa-cloud-showers-heavy"></i></span> Precipitation
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="DailyETo" value="DailyETo">
+                            <span class="radio-icon"><i class="fas fa-tint"></i></span> Daily ETo
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="RainDuration" value="RainDuration">
+                            <span class="radio-icon"><i class="fas fa-cloud-rain"></i></span> Rain Duration
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="BarometricPressure" value="BarometricPressure">
+                            <span class="radio-icon"><i class="fas fa-thermometer-three-quarters"></i></span> Barometric Pressure
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="Temperature" value="Temperature">
+                            <span class="radio-icon"><i class="fas fa-thermometer-full"></i></span> Temperature
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="RelativeHumidity" value="RelativeHumidity">
+                            <span class="radio-icon"><i class="fas fa-tint"></i></span> Relative Humidity
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label class="radio-label">
+                            <input type="radio" name="plotSelect" id="WINDDIRECTION" value="WINDDIRECTION">
+                            <span class="radio-icon"><i class="fas fa-compass"></i></span> Wind Direction
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div id="container"></div>
+            <table id="data-table" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth is-hidden">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Data Value</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body"></tbody>
+            </table>
+            <!-- Export buttons -->
+    <div class="export-buttons">
+        <button id="export-csv-btn" class="button is-primary">Export CSV</button>
+        <button id="export-excel-btn" class="button is-primary">Export Excel</button>
+        </div>
+    </section>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
